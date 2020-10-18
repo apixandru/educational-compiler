@@ -1,24 +1,21 @@
 package intermediate.control;
 
-import java.util.ArrayList;
-
-import exceptions.MismatchException;
-import exceptions.MissingResourceException;
-
 import generator.NodeVisitor;
 import intermediate.BaseNode;
 import intermediate.expression.ExprNode;
 
+import java.util.List;
+
 public class If extends ControlNode{
 
-	private ArrayList<BaseNode> elselist;
+	private List<BaseNode> elselist;
 	
-	public If(ExprNode n, ArrayList<BaseNode> b, ArrayList<BaseNode> elselist) {
+	public If(ExprNode n, List<BaseNode> b, List<BaseNode> elselist) {
 		super(n, b);
 		this.elselist = elselist;
 	}
 
-	public ArrayList<BaseNode> elseList(){
+	public List<BaseNode> elseList(){
 		return elselist;
 	}
 	

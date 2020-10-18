@@ -1,6 +1,7 @@
 package intermediate.control;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.MismatchException;
 import exceptions.MissingResourceException;
@@ -13,7 +14,7 @@ public class Do extends ControlNode{
 
 	private Assign change;
 	
-	public Do(Assign change, ArrayList<BaseNode> b) {
+	public Do(Assign change, List<BaseNode> b) {
 		super(null, b);
 		this.change = change;
 	}

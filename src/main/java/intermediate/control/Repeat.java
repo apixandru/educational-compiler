@@ -1,17 +1,14 @@
 package intermediate.control;
 
-import java.util.ArrayList;
-
-import exceptions.MismatchException;
-import exceptions.MissingResourceException;
-
 import generator.NodeVisitor;
 import intermediate.BaseNode;
 import intermediate.expression.ExprNode;
 
+import java.util.List;
+
 public class Repeat extends ControlNode{
 
-	public Repeat(ExprNode test, ArrayList<BaseNode> body) {
+	public Repeat(ExprNode test, List<BaseNode> body) {
 		super(test, body);
 	}
 

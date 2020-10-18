@@ -8,6 +8,7 @@ import generator.NodeVisitor;
 import intermediate.expression.ExprNode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import persistent.FunTable;
 import persistent.Statements;
@@ -17,11 +18,11 @@ import lexer.Token;
 
 public class Function extends BaseNode{
 	
-	private ArrayList<BaseNode> statements;
+	private List<BaseNode> statements;
 	private Token token;
 	private String alias;
 	
-	public Function(Token t, String type, ArrayList<ExprNode> args) {
+	public Function(Token t, String type, List<ExprNode> args) {
 		alias = FunTable.define(t, type, args);
 		token = t;
 		statements = Statements.pop();
@@ -35,7 +36,7 @@ public class Function extends BaseNode{
 		return token.value();
 	}
 	
-	public ArrayList<BaseNode> statements(){
+	public List<BaseNode> statements(){
 		return statements;
 	}
 	

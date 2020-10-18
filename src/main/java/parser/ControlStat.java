@@ -6,6 +6,8 @@ import intermediate.expression.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import persistent.*;
 import lexer.*;
 import exceptions.*;
@@ -36,7 +38,7 @@ public abstract class ControlStat extends BooleanExpression{
 		rBrack();
 		Statements.push();
 		stats();
-		ArrayList<BaseNode> forStats = Statements.pop();
+		List<BaseNode> forStats = Statements.pop();
 		Statements.add(new For(begin, condition, change, forStats));
 		Scope.pop();
 	}
@@ -45,7 +47,7 @@ public abstract class ControlStat extends BooleanExpression{
 		match("loop");
 		Statements.push();
 		stats();
-		ArrayList<BaseNode> loopStats = Statements.pop(); 
+		List<BaseNode> loopStats = Statements.pop();
 		Statements.add(new Loop(loopStats));
 	}
 	
@@ -63,7 +65,7 @@ public abstract class ControlStat extends BooleanExpression{
 		Statements.push();
 		stats();
 		Statements.add(new Decrement(condition));
-		ArrayList<BaseNode> doStats = Statements.pop();
+		List<BaseNode> doStats = Statements.pop();
 		Statements.add(new Do(change, doStats));
 	}
 	
@@ -75,7 +77,7 @@ public abstract class ControlStat extends BooleanExpression{
 		rBrack();
 		Statements.push();
 		stats();
-		ArrayList<BaseNode> whileStats = Statements.pop();
+		List<BaseNode> whileStats = Statements.pop();
 		try {
 			int temp = Integer.parseInt(n.toString());
 			if(temp == 1){
@@ -89,8 +91,8 @@ public abstract class ControlStat extends BooleanExpression{
 	}
 	
 	protected void iff() {
-		ArrayList<BaseNode> ifStats = new ArrayList<BaseNode>();
-		ArrayList<BaseNode> elseStats = new ArrayList<BaseNode>();
+		List<BaseNode> ifStats = new ArrayList<>();
+		List<BaseNode> elseStats = new ArrayList<>();
 		Token t = lookahead();
 		match("if");
 		lBrack();
@@ -126,7 +128,7 @@ public abstract class ControlStat extends BooleanExpression{
 		match("repeat"); 	
 		Statements.push();
 		stats();
-		ArrayList<BaseNode> repeatStats = Statements.pop();
+		List<BaseNode> repeatStats = Statements.pop();
 		match("until");
 		lBrack();
 		ExprNode n = getBoolean();

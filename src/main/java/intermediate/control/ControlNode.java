@@ -1,15 +1,15 @@
 package intermediate.control;
 
-import java.util.ArrayList;
-
 import intermediate.BaseNode;
 import intermediate.expression.ExprNode;
 
+import java.util.List;
+
 public abstract class ControlNode extends BaseNode{
 	ExprNode test;
-	ArrayList<BaseNode> body;
+	List<BaseNode> body;
 	
-	public ControlNode(ExprNode n, ArrayList<BaseNode> b) {
+	public ControlNode(ExprNode n, List<BaseNode> b) {
 		test = n;
 		body = b;
 	}
@@ -18,7 +18,7 @@ public abstract class ControlNode extends BaseNode{
 		return test;
 	}
 	
-	public ArrayList<BaseNode> body(){
+	public List<BaseNode> body(){
 		return body;
 	}
 	

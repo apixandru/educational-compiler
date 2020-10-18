@@ -1,6 +1,7 @@
 package intermediate.control;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.MismatchException;
 import exceptions.MissingResourceException;
@@ -10,7 +11,7 @@ import intermediate.BaseNode;
 
 public class Loop extends ControlNode{
 
-	public Loop(ArrayList<BaseNode> b) {
+	public Loop(List<BaseNode> b) {
 		super(null, b);
 	}
 	

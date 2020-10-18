@@ -4,18 +4,16 @@ import compiler.SeaCompiler;
 import exceptions.MismatchException;
 import exceptions.UnexpectedException;
 import lexer.SeaLexer;
-import lexer.Token;
 import lexer.Type;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 public class TestLexer {
-
-    Token curToken = null;
-    Token testToken = null;
 
     @Test
     public void noEffect() {
@@ -23,38 +21,65 @@ public class TestLexer {
         Type.values();
     }
 
-    @Test(expected = MismatchException.class)
-    public void neverEndingString() throws IOException {
-        SeaLexer lexer = newLexer("tests/lexer/badString.sea");
-        curToken = lexer.nextToken();
+    @Test
+    public void neverEndingString() {
+        MismatchException ex = assertThrows(MismatchException.class, () -> {
+            SeaLexer lexer = newLexer("tests/lexer/badString.sea");
+            lexer.nextToken();
+        });
+
+        assertThat(ex.getMessage())
+                .isEqualTo("Reached EOF and still no ending string character");
     }
 
-    @Test(expected = UnexpectedException.class)
-    public void matchFail() throws IOException {
-        SeaLexer lexer = newLexer("tests/lexer/badTokens.sea");
-        curToken = lexer.nextToken();
+    @Test
+    public void matchFail() {
+        UnexpectedException ex = assertThrows(UnexpectedException.class, () -> {
+            SeaLexer lexer = newLexer("tests/lexer/badTokens.sea");
+            lexer.nextToken();
+        });
+
+        assertThat(ex.getMessage())
+                .isEqualTo("Error 1, 2: Unexpected character: '\r'.");
     }
 
-    @Test(expected = MismatchException.class)
-    public void badOperator() throws IOException {
-        SeaLexer lexer = newLexer("tests/lexer/badTokens2.sea");
-        curToken = lexer.nextToken();
+    @Test
+    public void badOperator() {
+        MismatchException ex = assertThrows(MismatchException.class, () -> {
+            SeaLexer lexer = newLexer("tests/lexer/badTokens2.sea");
+            lexer.nextToken();
+        });
+
+        assertThat(ex.getMessage())
+                .isEqualTo("Error 1,2: Expecting '|', found '^'.");
     }
 
-    @Test(expected = FileNotFoundException.class)
-    public void noFile() throws IOException {
-        SeaLexer lexer = newLexer("/noFile");
-        curToken = lexer.nextToken();
+    @Test
+    public void noFile() {
+        assertThrows(FileNotFoundException.class, () -> {
+            SeaLexer lexer = newLexer("/noFile");
+            lexer.nextToken();
+        });
     }
 
-    @Test(expected = MismatchException.class)
-    public void tooShort() throws Exception {
-        SeaCompiler.compile("/noFile");
+    @Test
+    public void tooShort() {
+        MismatchException ex = assertThrows(MismatchException.class, () -> {
+            SeaCompiler.compile("/noFile");
+        });
+
+        assertThat(ex.getMessage())
+                .isEqualTo("ERROR: Filename must have the 'sea' extension");
     }
 
-    @Test(expected = MismatchException.class)
-    public void lessThan3Letters() throws Exception {
-        SeaCompiler.debug("xx");
+    @Test
+    public void lessThan3Letters() {
+        MismatchException ex = assertThrows(MismatchException.class, () -> {
+            SeaCompiler.debug("xx");
+        });
+
+        assertThat(ex.getMessage())
+                .isEqualTo("ERROR: Filename too short");
     }
 
     private SeaLexer newLexer(String s) throws FileNotFoundException {

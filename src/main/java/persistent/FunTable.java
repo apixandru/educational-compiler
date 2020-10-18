@@ -6,6 +6,7 @@ import intermediate.expression.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 
 import exceptions.*;
@@ -17,13 +18,13 @@ public class FunTable{
 	@SuppressWarnings("unused")
 	private static FunTable parent = new FunTable(); // for code coverage purposes only
 	
-	private static Hashtable<String, FunBol> symbols = new Hashtable<String, FunBol>();
+	private static Hashtable<String, FunBol> symbols = new Hashtable<>();
 	
 	private static int unique = 0;
 	private static final String PREFIX = "UDF";
 	public static String functions;
 	
-	public static String define(Token t, String type, ArrayList<ExprNode> args) {
+	public static String define(Token t, String type, List<ExprNode> args) {
 		String name = t.value();
 		FunBol sym = symbols.get(name);
 		if (sym == null){
@@ -53,14 +54,14 @@ public class FunTable{
 		return sym.alias();
 	}
 	
-	private static ArrayList<String> getArguments(ArrayList<ExprNode> args){
-		ArrayList<String> arguments = new ArrayList<String>();
+	private static ArrayList<String> getArguments(List<ExprNode> args){
+		ArrayList<String> arguments = new ArrayList<>();
 		for (ExprNode b: args)
 			arguments.add(b.type());
 		return arguments;
 	}
 	
-	private static void checkArgs(ArrayList<String> inTable, ArrayList<ExprNode> called, Token t) {
+	private static void checkArgs(ArrayList<String> inTable, List<ExprNode> called, Token t) {
 		if (inTable.size() != called.size())
 			throw new MismatchException(t, "Number of arguments don't match.");
 		else {

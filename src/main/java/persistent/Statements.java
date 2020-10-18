@@ -4,31 +4,33 @@ import intermediate.AddNode;
 import intermediate.BaseNode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Statements {
+
 	private Statements parent;
-	private ArrayList<BaseNode> stats;
+	private List<BaseNode> stats;
 	
 	private static Statements statlist = null; 
 	
 	private Statements(Statements stats){
 		parent = stats;
-		this.stats = new ArrayList<BaseNode>(); 
+		this.stats = new ArrayList<>();
 	}
 	
-	public static ArrayList<BaseNode> push(){
+	public static List<BaseNode> push(){
 		statlist = new Statements(statlist);
 		return statlist.stats;
 	}
 	
-	public static ArrayList<BaseNode> pop(){
-		ArrayList<BaseNode> temp = new ArrayList<BaseNode>();
+	public static List<BaseNode> pop(){
+		List<BaseNode> temp = new ArrayList<>();
 		temp.addAll(statlist.stats);
 		statlist = statlist.parent;
 		return temp;
 	}
 	
-	public static ArrayList<BaseNode> getAll(){
+	public static List<BaseNode> getAll(){
 		return statlist.stats;
 	}
 	
@@ -36,7 +38,7 @@ public class Statements {
 		statlist.stats.add(n);
 	}
 
-	public static void addAll(ArrayList<BaseNode> n){
+	public static void addAll(List<BaseNode> n){
 		statlist.stats.addAll(n);
 	}
 

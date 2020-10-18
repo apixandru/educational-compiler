@@ -1,6 +1,7 @@
 package generator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import persistent.FunBol;
 import persistent.FunTable;
@@ -25,7 +26,7 @@ public class X86 implements NodeVisitor{
 
 	public static final String PREFIX = "UL";
 	public static int num = 0;
-	private ArrayList<BaseNode> assigns = new ArrayList<BaseNode>();
+	private List<BaseNode> assigns = new ArrayList<>();
 	private boolean returned = false;
 
 	private Label label = null;
@@ -80,7 +81,7 @@ public class X86 implements NodeVisitor{
 		args = temp.args().size() * 4;
 		type = temp.type();
 		returned = false;
-		ArrayList<BaseNode> stats = node.statements();
+		List<BaseNode> stats = node.statements();
 		out(node.alias() + ":");
 		beginFun();
 		for (BaseNode b : stats){
@@ -229,7 +230,7 @@ public class X86 implements NodeVisitor{
 		jumpFalse(s1);
 		for (BaseNode n :node.body())
 			n.accept(this);
-		ArrayList<BaseNode> elseList = node.elseList();
+		List<BaseNode> elseList = node.elseList();
 		if (elseList.size() != 0){
 			s2 = newLabel();
 			jump(s2);
