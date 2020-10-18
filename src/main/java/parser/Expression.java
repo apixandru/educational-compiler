@@ -14,6 +14,7 @@ import intermediate.expression.Unknown;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import lexer.Lexer;
 import lexer.Token;
 import persistent.Terms;
 import exceptions.MismatchException;
@@ -23,8 +24,12 @@ import exceptions.UnexpectedException;
 
 
 public abstract class Expression extends Parser{
-	
-	protected void expression() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+
+    public Expression(Lexer lexer) {
+        super(lexer);
+    }
+
+    protected void expression() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
 		if( isString() )
 			throw new MismatchException(lookahead, "cannot assign strings.");
 		term();

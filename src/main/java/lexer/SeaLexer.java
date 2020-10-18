@@ -4,17 +4,16 @@ import java.io.IOException;
 import exceptions.*;
 public class SeaLexer extends Lexer{
 	
-	public static void setInput(String input) throws IOException{
-		new SeaLexer(input);
-	}
-	
-	private SeaLexer(String input) throws IOException {
+	public SeaLexer(String input) throws IOException {
 		super(input);
 	}
 
-	public static Token nextToken() throws MismatchException, IOException, UnexpectedException{
-		while (c != EOF){
-			whiteSpace();
+	public Token nextToken() throws MismatchException, IOException, UnexpectedException{
+		while (!isEof()){
+			if (isWhiteSpace()) {
+				whiteSpace();
+				continue;
+			}
 			switch(Character.toLowerCase(c)){
 			case'"': 
 				return getString();
@@ -42,9 +41,7 @@ public class SeaLexer extends Lexer{
 			case ';':
 			case '!':
 				return getOperator();
-			case EOF:
-				break;
-			default: 
+			default:
 				if (isAlpha())
 					return getName();
 				else if (isNum())
@@ -56,17 +53,17 @@ public class SeaLexer extends Lexer{
 		return newToken("EOF", Type.EOF);
 	}
 	
-	private static Token getNumber() throws IOException{
+	private Token getNumber() throws IOException{
 		String num = "";
 		while (isNum())
 			num += consume();
 		return newToken(num, Type.NUMBER);
 	}
 	
-	private static Token getString() throws IOException, MismatchException{
+	private Token getString() throws IOException, MismatchException{
 		String theString = "";
 		char last = consume();
-		while (c != EOF){
+		while (!isEof()){
 			if (c == '"' && last != '\\'){
 				consume();
 				return newToken(theString, Type.STRING);
@@ -77,7 +74,7 @@ public class SeaLexer extends Lexer{
 		throw new MismatchException("Reached EOF and still no ending string character");
 	}
 	
-	private static Token getName() throws IOException{
+	private Token getName() throws IOException{
 		String name = "" + consume();
 		while (isAlNum())
 			name += consume();
@@ -103,7 +100,7 @@ public class SeaLexer extends Lexer{
 		}
 	}
 	
-	private static Token getOperator() throws IOException, MismatchException, UnexpectedException{
+	private Token getOperator() throws IOException, MismatchException, UnexpectedException{
 		String op = "" + consume();
 		switch (op){
 		case "+":
@@ -165,11 +162,11 @@ public class SeaLexer extends Lexer{
 			return newToken(op, Type.OPERATOR);
 	}
 	
-	private static Token newToken(String s, Type t){
+	private Token newToken(String s, Type t){
 		return new Token(s, t, line, character);
 	}
 	
-	private static Token newToken(char c, Type t){
+	private Token newToken(char c, Type t){
 		return new Token(c, t, line, character);
 	}
 

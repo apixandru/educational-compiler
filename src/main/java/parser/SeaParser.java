@@ -13,8 +13,8 @@ import lexer.*;
 
 public class SeaParser extends ControlStat {
 
-	public SeaParser(String s) throws IOException, MismatchException, OverrideException, MissingResourceException, UnexpectedException{
-		SeaLexer.setInput(s);
+	public SeaParser(String path) throws IOException, MismatchException, OverrideException, MissingResourceException, UnexpectedException{
+		super(new SeaLexer(path));
 		FunTable.reset();
 		Scope.reset();
 		Statements.clear();

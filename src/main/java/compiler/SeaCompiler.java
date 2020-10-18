@@ -19,11 +19,11 @@ public class SeaCompiler extends Request{
 	static boolean debug = true;
 
 	public static void compile(String s) throws IOException, InterruptedException, MismatchException, OverrideException, MissingResourceException, UnexpectedException{
-		compileFile(pwd() + s);
+		compileFile(s);
 	}
 	
 	public static String debug(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException {
-		return debugFile(pwd() + s);
+		return debugFile(s.substring(1));
 	}
 	
 	static void compileFile(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException{

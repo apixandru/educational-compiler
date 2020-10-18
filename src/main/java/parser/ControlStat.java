@@ -12,6 +12,10 @@ import exceptions.*;
 
 public abstract class ControlStat extends BooleanExpression{
 
+	public ControlStat(Lexer lexer) {
+		super(lexer);
+	}
+
 	protected void forf() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
 		match("for");
 		lBrack();

@@ -1,6 +1,8 @@
 package parser;
 
 import java.io.IOException;
+
+import lexer.Lexer;
 import persistent.Terms;
 import exceptions.*;
 import intermediate.expression.*;
@@ -9,6 +11,10 @@ import lexer.Token;
 public abstract class BooleanExpression extends Expression{
 
 	private boolean isBoolean;
+
+	public BooleanExpression(Lexer lexer) {
+		super(lexer);
+	}
 
 	private boolean isOrOp() {
 		return is("||");
