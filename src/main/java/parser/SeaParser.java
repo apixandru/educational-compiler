@@ -17,6 +17,7 @@ import persistent.Scope;
 import persistent.Statements;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeaParser extends ControlStat {
 
@@ -78,7 +79,7 @@ public class SeaParser extends ControlStat {
         }
         pushScope();
         Statements.push();
-        ArrayList<ExprNode> args = getDefArgs();
+        List<ExprNode> args = getDefArgs();
         begin();
         block();
         end();
@@ -97,7 +98,7 @@ public class SeaParser extends ControlStat {
 
 
     private void EOF() {
-        Statements.add(new Call(new Token("exit", null, 0, 0), new ArrayList<ExprNode>()));
+        Statements.add(new Call(new Token("exit", null, 0, 0), new ArrayList<>()));
         match(Type.EOF);
         if (FunTable.undefined() > 0) {
             throw new MissingResourceException("Call to undefined functions:\n" + FunTable.functions);
@@ -112,13 +113,13 @@ public class SeaParser extends ControlStat {
             throw new MismatchException(lookahead(), "can only run functions");
         }
         Token t = identifier();
-        ArrayList<ExprNode> args = getArgs();
+        List<ExprNode> args = getArgs();
         Statements.add(new Run(t, args));
     }
 
-    protected ArrayList<ExprNode> getArgs() {
+    protected List<ExprNode> getArgs() {
         lBrack();
-        ArrayList<ExprNode> args = new ArrayList<ExprNode>();
+        List<ExprNode> args = new ArrayList<ExprNode>();
 
         while (isNum() || isID() || isAddOp() || isString()) {
             if (isNum() || isID() || isAddOp()) {
@@ -137,13 +138,13 @@ public class SeaParser extends ControlStat {
         return args;
     }
 
-    private ArrayList<ExprNode> getDefArgs() {
+    private List<ExprNode> getDefArgs() {
         lBrack();
         int num = 2;
-        ArrayList<ExprNode> args = new ArrayList<ExprNode>();
-        ArrayList<Token> t = new ArrayList<Token>();
-        ArrayList<String> ty = new ArrayList<String>();
-        ArrayList<Integer> in = new ArrayList<Integer>();
+        List<ExprNode> args = new ArrayList<ExprNode>();
+        List<Token> t = new ArrayList<Token>();
+        List<String> ty = new ArrayList<String>();
+        List<Integer> in = new ArrayList<Integer>();
 
         while (isType() || isComma()) {
             if (args.size() > 0) {
@@ -166,7 +167,7 @@ public class SeaParser extends ControlStat {
     }
 
     private void call(Token t) {
-        ArrayList<ExprNode> args = getArgs();
+        List<ExprNode> args = getArgs();
         Statements.add(new Call(t, args));
     }
 

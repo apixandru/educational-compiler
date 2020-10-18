@@ -5,14 +5,15 @@ import exceptions.MismatchException;
 import lexer.Token;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FunBol extends Symbol {
 
-    private final ArrayList<String> args;
+    private final List<String> args;
     private boolean defined;
     private boolean called;
 
-    FunBol(Token t, String type, String alias, ArrayList<String> args) {
+    FunBol(Token t, String type, String alias, List<String> args) {
         super(type, t, alias);
         this.args = args;
         defined = false;
@@ -41,7 +42,7 @@ public class FunBol extends Symbol {
         return this;
     }
 
-    public ArrayList<String> args() {
+    public List<String> args() {
         return args;
     }
 

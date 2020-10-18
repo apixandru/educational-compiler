@@ -65,7 +65,7 @@ public class X86 implements NodeVisitor {
 
     @Override
     public void visit(Call node) {
-        ArrayList<ExprNode> temp = node.args();
+        List<ExprNode> temp = node.args();
         int size = temp.size();
         push("$0");
         for (int i = 0; i < size; i++) {

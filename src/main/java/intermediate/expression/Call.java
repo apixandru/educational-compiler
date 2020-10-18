@@ -6,15 +6,15 @@ import lexer.Token;
 import persistent.FunBol;
 import persistent.FunTable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Call extends ExprNode {
 
-    private final ArrayList<ExprNode> args;
+    private final List<ExprNode> args;
     private final Token token;
     private final String alias;
 
-    public Call(Token token, ArrayList<ExprNode> args) {
+    public Call(Token token, List<ExprNode> args) {
         super(null);
         this.token = token;
         this.args = args;
@@ -35,7 +35,7 @@ public class Call extends ExprNode {
         return alias;
     }
 
-    public ArrayList<ExprNode> args() {
+    public List<ExprNode> args() {
         return args;
     }
 

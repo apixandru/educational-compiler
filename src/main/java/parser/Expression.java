@@ -7,7 +7,7 @@ import lexer.Lexer;
 import lexer.Token;
 import persistent.Terms;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Expression extends Parser {
 
@@ -93,6 +93,6 @@ public abstract class Expression extends Parser {
 
     protected abstract Unknown getUnk(Token token);
 
-    protected abstract ArrayList<ExprNode> getArgs();
+    protected abstract List<ExprNode> getArgs();
 
 }

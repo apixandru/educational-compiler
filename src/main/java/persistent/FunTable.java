@@ -43,7 +43,7 @@ public class FunTable {
         return sym.alias();
     }
 
-    public static String call(Token t, ArrayList<ExprNode> args, String type) {
+    public static String call(Token t, List<ExprNode> args, String type) {
         FunBol sym = symbols.get(t.value());
         if (sym == null) {
             sym = createFun(t, type, getArguments(args));
@@ -54,15 +54,15 @@ public class FunTable {
         return sym.alias();
     }
 
-    private static ArrayList<String> getArguments(List<ExprNode> args) {
-        ArrayList<String> arguments = new ArrayList<>();
+    private static List<String> getArguments(List<ExprNode> args) {
+        List<String> arguments = new ArrayList<>();
         for (ExprNode b : args) {
             arguments.add(b.type());
         }
         return arguments;
     }
 
-    private static void checkArgs(ArrayList<String> inTable, List<ExprNode> called, Token t) {
+    private static void checkArgs(List<String> inTable, List<ExprNode> called, Token t) {
         if (inTable.size() != called.size()) {
             throw new MismatchException(t, "Number of arguments don't match.");
         } else {
@@ -136,7 +136,7 @@ public class FunTable {
         cymbol.setType("int");
     }
 
-    public static void add(String name, String type, ArrayList<String> args) {
+    public static void add(String name, String type, List<String> args) {
         symbols.put(name, new FunBol(new Token(name, null, -10, -10 + name.length()), type, name, args));
         FunBol s = symbols.get(name);
         s.define(type);
@@ -146,11 +146,11 @@ public class FunTable {
     public static void reset() {
         symbols.clear();
 
-        ArrayList<String> intArgument = new ArrayList<String>();
-        ArrayList<String> stringArgument = new ArrayList<String>();
+        List<String> intArgument = new ArrayList<>();
+        List<String> stringArgument = new ArrayList<>();
 
-        FunTable.add("printlf", "void", new ArrayList<String>());
-        FunTable.add("exit", "void", new ArrayList<String>());
+        FunTable.add("printlf", "void", new ArrayList<>());
+        FunTable.add("exit", "void", new ArrayList<>());
         intArgument.add("int");
         FunTable.add("printintlf", "void", intArgument);
         FunTable.add("printint", "void", intArgument);
@@ -159,8 +159,8 @@ public class FunTable {
         FunTable.add("getlen", "void", stringArgument);
     }
 
-    private static FunBol createFun(Token t, String type, ArrayList<String> args) {
-        return new FunBol(t, type, PREFIX + unique++, args);
+    private static FunBol createFun(Token token, String type, List<String> args) {
+        return new FunBol(token, type, PREFIX + unique++, args);
     }
 
 }

@@ -57,7 +57,6 @@ public class Prelude {
         printint();
         printlf();
         printintlf();
-
     }
 
     private void printlf() {

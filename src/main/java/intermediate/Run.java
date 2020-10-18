@@ -5,11 +5,11 @@ import intermediate.expression.Call;
 import intermediate.expression.ExprNode;
 import lexer.Token;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Run extends Call {
 
-    public Run(Token t, ArrayList<ExprNode> args) {
+    public Run(Token t, List<ExprNode> args) {
         super(t, args);
     }
 
