@@ -1,27 +1,14 @@
 
 package parser;
 
-import intermediate.expression.Add;
-import intermediate.expression.Call;
-import intermediate.expression.Constant;
-import intermediate.expression.Divide;
-import intermediate.expression.ExprNode;
-import intermediate.expression.Modulo;
-import intermediate.expression.Multiply;
-import intermediate.expression.Substract;
-import intermediate.expression.Unknown;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
+import exceptions.MismatchException;
+import exceptions.UnexpectedException;
+import intermediate.expression.*;
 import lexer.Lexer;
 import lexer.Token;
 import persistent.Terms;
-import exceptions.MismatchException;
-import exceptions.MissingResourceException;
-import exceptions.OverrideException;
-import exceptions.UnexpectedException;
 
+import java.util.ArrayList;
 
 public abstract class Expression extends Parser{
 
@@ -29,7 +16,7 @@ public abstract class Expression extends Parser{
         super(lexer);
     }
 
-    protected void expression() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    protected void expression() {
 		if( isString() )
 			throw new MismatchException(lookahead, "cannot assign strings.");
 		term();
@@ -37,13 +24,13 @@ public abstract class Expression extends Parser{
     		expNode();
     }
     
-    private void term() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void term() {
     	factor();
     	while ( isMulOp() )
     		expNode();
     }
     
-    private void factor() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void factor() {
     	if ( isAddOp() ) {
     		Terms.add( new Constant( 0 ) );
     		expNode();
@@ -68,7 +55,7 @@ public abstract class Expression extends Parser{
     	}
     }
     
-	private void expNode() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void expNode() {
 		String value = lookahead.value();
 		consume();
 		if (value.equals("+") || value.equals("-"))
@@ -99,8 +86,8 @@ public abstract class Expression extends Parser{
     	addNode( temp );
     }
 	
-	protected abstract Unknown getUnk(Token token) throws MissingResourceException;
+	protected abstract Unknown getUnk(Token token);
 
-	protected abstract ArrayList<ExprNode> getArgs() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException;
+	protected abstract ArrayList<ExprNode> getArgs();
 
 }

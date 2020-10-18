@@ -7,7 +7,7 @@ import generator.NodeVisitor;
 
 
 public class Multiply extends ExprNode{
-	public Multiply(ExprNode left, ExprNode right) throws MismatchException{
+	public Multiply(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		rn = right;
@@ -61,7 +61,7 @@ public class Multiply extends ExprNode{
 		}
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

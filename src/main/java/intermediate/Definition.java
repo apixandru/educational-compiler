@@ -23,7 +23,7 @@ public class Definition extends BaseNode{
 		return value;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

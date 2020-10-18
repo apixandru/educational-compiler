@@ -6,6 +6,6 @@ import generator.NodeVisitor;
 
 public abstract class BaseNode{
 
-	public abstract void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException;
+	public abstract void accept(NodeVisitor visitor);
 
 }	

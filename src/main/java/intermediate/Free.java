@@ -17,7 +17,7 @@ public class Free extends BaseNode{
 		return ammount*4;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

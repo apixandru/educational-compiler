@@ -23,25 +23,25 @@ public class TestLexer {
     }
 
     @Test(expected = MismatchException.class)
-    public void neverEndingString() throws IOException, MismatchException, UnexpectedException {
+    public void neverEndingString() throws IOException {
         SeaLexer lexer = new SeaLexer("tests/lexer/badString.sea");
         curToken = lexer.nextToken();
     }
 
     @Test(expected = UnexpectedException.class)
-    public void matchFail() throws IOException, MismatchException, UnexpectedException {
+    public void matchFail() throws IOException {
         SeaLexer lexer = new SeaLexer("tests/lexer/badTokens.sea");
         curToken = lexer.nextToken();
     }
 
     @Test(expected = MismatchException.class)
-    public void badOperator() throws IOException, MismatchException, UnexpectedException {
+    public void badOperator() throws IOException {
         SeaLexer lexer = new SeaLexer("tests/lexer/badTokens2.sea");
         curToken = lexer.nextToken();
     }
 
     @Test(expected = FileNotFoundException.class)
-    public void noFile() throws IOException, MismatchException, UnexpectedException {
+    public void noFile() throws IOException {
         SeaLexer lexer = new SeaLexer("/noFile");
         curToken = lexer.nextToken();
     }

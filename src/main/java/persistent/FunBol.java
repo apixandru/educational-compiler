@@ -28,7 +28,7 @@ public class FunBol extends Symbol{
 		return called;
 	}
 
-	protected void define(String type) throws MismatchException{
+	protected void define(String type) {
 		defined = true;
 		if (this.type() == null)
 			setType(type);

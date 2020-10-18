@@ -7,7 +7,7 @@ import generator.NodeVisitor;
 
 
 public class Divide extends ExprNode{
-	public Divide(ExprNode left, ExprNode right) throws MismatchException{
+	public Divide(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		if (right.optimize().equals("0"))
@@ -40,7 +40,7 @@ public class Divide extends ExprNode{
 		}
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

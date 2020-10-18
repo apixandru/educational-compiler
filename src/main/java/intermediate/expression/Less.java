@@ -6,7 +6,7 @@ import generator.NodeVisitor;
 
 public class Less extends ExprNode{
 	
-	public Less(ExprNode left, ExprNode right) throws MismatchException{
+	public Less(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		rn = right;
@@ -33,7 +33,7 @@ public class Less extends ExprNode{
 		}
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

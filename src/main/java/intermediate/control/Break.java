@@ -10,7 +10,7 @@ public class Break extends ControlNode{
 		super(null, null);
 	}
 
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

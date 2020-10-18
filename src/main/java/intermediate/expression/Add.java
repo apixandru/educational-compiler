@@ -6,7 +6,7 @@ import exceptions.MissingResourceException;
 import generator.NodeVisitor;
 
 public class Add extends ExprNode{
-	public Add(ExprNode left, ExprNode right) throws MismatchException{
+	public Add(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		rn = right;
@@ -57,7 +57,7 @@ public class Add extends ExprNode{
 		return getLeft() + "+" + getRight();
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 	

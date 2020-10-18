@@ -8,7 +8,7 @@ import intermediate.expression.Unknown;
 
 public class SubFrom extends Assign{
 
-	public SubFrom(Unknown variable, ExprNode ex) throws MismatchException, MissingResourceException{
+	public SubFrom(Unknown variable, ExprNode ex) {
 		super(variable, new Substract(variable,ex), '-');
 	}
 	

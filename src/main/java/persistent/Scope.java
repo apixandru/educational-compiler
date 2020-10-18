@@ -2,6 +2,7 @@ package persistent;
 
 import intermediate.*;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import exceptions.*;
 
@@ -16,23 +17,23 @@ public class Scope{
 	private static boolean allow = true;
 	
 	private Scope parent;
-	private Hashtable<String, VarBol> symbols;
+	private HashMap<String, VarBol> symbols;
 	
 	public Scope(Scope parent){
 		this.parent = parent;
-		symbols = new Hashtable<String, VarBol>();
+		symbols = new HashMap<>();
 	}
 	
 	
-	public void define(Token t, String type) throws OverrideException{
+	public void define(Token t, String type) {
 		define(t, type,  "-" + ++variables*4 + "(%ebp)");
 	}
 	
-	public void global(String value, Token t, String type) throws OverrideException{
+	public void global(String value, Token t, String type) {
 		define(t, type, value);
 	}
 	
-	public void define(Token t, String type, String alias) throws OverrideException{
+	public void define(Token t, String type, String alias) {
 //		if (!t.type().equals(Type.STRING)){
 			VarBol sym = symbols.get(t.value());
 			if (sym == null)
@@ -42,17 +43,17 @@ public class Scope{
 		}
 //	}
 	
-	public static String typeOf(Token t) throws MissingResourceException{
+	public static String typeOf(Token t) {
 		Symbol x = scope.getSym(t);
 		return x.type();
 	}
 	
-	public static String aliasOf(Token t) throws MissingResourceException{
+	public static String aliasOf(Token t) {
 		Symbol x = scope.getSym(t);
 		return x.alias();
 	}
 	
-	private Symbol getSym(Token t) throws MissingResourceException{
+	private Symbol getSym(Token t) {
 		String s = t.value();
 		Symbol sym = symbols.get(s);
 		if (sym == null)
@@ -63,7 +64,7 @@ public class Scope{
 		return sym;
 	}
 	
-	public static String plusOne() throws OverrideException, MissingResourceException{
+	public static String plusOne() {
 		Token t = new Token("for", Type.IDENTIFIER, 0, 0);
 		pushVar(t, "int");
 		return scope.symbols.get("for").alias();
@@ -88,16 +89,16 @@ public class Scope{
 		pop(0);
 	}
 	
-	public static void pushVar(Token t, String type) throws OverrideException, MissingResourceException{
+	public static void pushVar(Token t, String type) {
 		scope.define(t, type);
 		Statements.add(new Definition(scope.getSym(t).alias()));
 	}
 	
-	public static void pushGlobalVar(String value, Token t, String type) throws OverrideException, MissingResourceException{
+	public static void pushGlobalVar(String value, Token t, String type) {
 		scope.global(value, t, type);
 	}
 	
-	public static void pushVariable(Token t, String type, String alias) throws OverrideException{
+	public static void pushVariable(Token t, String type, String alias) {
 		scope.define(t, type, alias);
 	}
 	
@@ -107,7 +108,6 @@ public class Scope{
 		variables = 0;
 	}
 	
-
 	public static void banLocal(){
 		allow = false;
 	}

@@ -22,7 +22,7 @@ public class If extends ControlNode{
 		return elselist;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 	

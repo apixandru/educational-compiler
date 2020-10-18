@@ -23,7 +23,7 @@ public class FunTable{
 	private static final String PREFIX = "UDF";
 	public static String functions;
 	
-	public static String define(Token t, String type, ArrayList<ExprNode> args) throws OverrideException, MismatchException, MissingResourceException{
+	public static String define(Token t, String type, ArrayList<ExprNode> args) {
 		String name = t.value();
 		FunBol sym = symbols.get(name);
 		if (sym == null){
@@ -42,7 +42,7 @@ public class FunTable{
 		return sym.alias();
 	}
 	
-	public static String call(Token t, ArrayList<ExprNode> args, String type) throws UnexpectedException, MismatchException, MissingResourceException{
+	public static String call(Token t, ArrayList<ExprNode> args, String type) {
 		FunBol sym = symbols.get(t.value());
 		if (sym == null){
 			sym = createFun(t, type, getArguments(args));
@@ -60,7 +60,7 @@ public class FunTable{
 		return arguments;
 	}
 	
-	private static void checkArgs(ArrayList<String> inTable, ArrayList<ExprNode> called, Token t) throws MismatchException, MissingResourceException{
+	private static void checkArgs(ArrayList<String> inTable, ArrayList<ExprNode> called, Token t) {
 		if (inTable.size() != called.size())
 			throw new MismatchException(t, "Number of arguments don't match.");
 		else {
@@ -131,14 +131,14 @@ public class FunTable{
 		cymbol.setType("int");
 	}
 	
-	public static void add(String name, String type, ArrayList<String> args) throws MismatchException{
+	public static void add(String name, String type, ArrayList<String> args) {
 		symbols.put(name, new FunBol(new Token(name, null, -10, -10+name.length()), type, name, args));
 		FunBol s = symbols.get(name);
 		s.define(type);
 		s.call();
 	}
 	
-	public static void reset() throws MismatchException{
+	public static void reset() {
 		symbols.clear();
 		
 		ArrayList<String> intArgument = new ArrayList<String>();

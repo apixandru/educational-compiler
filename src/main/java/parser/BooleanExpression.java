@@ -38,7 +38,7 @@ public abstract class BooleanExpression extends Expression{
     	}
     }
     
-    private void relation() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void relation() {
     	isBoolean = false;
     	bool();
     	if ( !isBoolean ){
@@ -47,7 +47,7 @@ public abstract class BooleanExpression extends Expression{
     	}
     }
 
-    private void bool() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void bool() {
     	expression();
     	if ( isRelOp() ){
     		isBoolean = true;
@@ -55,7 +55,7 @@ public abstract class BooleanExpression extends Expression{
     	}
     }
     
-    private void createNode( String value ) throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void createNode( String value ) {
 		consume();
 		expression();
 		ExprNode ln = Terms.getPenultimate();
@@ -96,7 +96,7 @@ public abstract class BooleanExpression extends Expression{
     	addNode( temp );
     }
 
-    private void notFactor() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    private void notFactor() {
     	if ( is("!") ){
     		consume();
     		lBrack();
@@ -108,7 +108,7 @@ public abstract class BooleanExpression extends Expression{
     		relation();
     }
 	
-	private void boolTerm() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void boolTerm() {
     	notFactor();
     	while ( isAndOp() ) {
     		consume();
@@ -117,7 +117,7 @@ public abstract class BooleanExpression extends Expression{
     	}
     }
     
-    protected void boolExpression() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+    protected void boolExpression() {
 		boolTerm();
 		while ( isOrOp() ) {
 			consume();
@@ -126,15 +126,15 @@ public abstract class BooleanExpression extends Expression{
 		}    
     }
     
-    protected ExprNode getExpression() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+    protected ExprNode getExpression() {
     	return getAux(false);
     }
     
-    protected ExprNode getBoolean() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+    protected ExprNode getBoolean() {
     	return getAux(true);
     }
     
-    private ExprNode getAux(boolean bool) throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+    private ExprNode getAux(boolean bool) {
 		Terms.push();
 		if (bool)
 			boolExpression();

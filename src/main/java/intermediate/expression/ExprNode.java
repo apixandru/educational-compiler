@@ -31,7 +31,7 @@ public abstract class ExprNode extends BaseNode{
 		return rn;
 	}
 	
-	protected void findType(String x) throws MismatchException{
+	protected void findType(String x) {
 		String type1 = ln.type();
 		String type2 = rn.type();	
 		String error = "Cannot " + x + " types " + type1 + " and " + type2 + ".";

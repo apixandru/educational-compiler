@@ -18,19 +18,19 @@ public class X86 implements NodeVisitor{
 
 	private int args = 0;
 	private String type = "";
-	
+
 	private String code;
 	static final char LF = '\n';
 	static final char TAB = '\t';
-	
+
 	public static final String PREFIX = "UL";
 	public static int num = 0;
 	private ArrayList<BaseNode> assigns = new ArrayList<BaseNode>();
 	private boolean returned = false;
-	
+
 	private Label label = null;
-	
-	public X86() throws MissingResourceException, MismatchException{
+
+	public X86() {
 		code = "";
 		new Prelude(this).prelude();
 		for (BaseNode n : Statements.getAll()){
@@ -41,9 +41,9 @@ public class X86 implements NodeVisitor{
 			n.accept(this);
 		}
 	}
-	
+
 	@Override
-	public void visit(Assign node) throws MissingResourceException, MismatchException {
+	public void visit(Assign node) {
 		node.expression().accept(this);
 		movl("%eax", node.variable().alias());
 	}
@@ -56,11 +56,11 @@ public class X86 implements NodeVisitor{
 	@Override
 	public void visit(Decrement node) {
 		outTab("decl " + node.variable());
-		
+
 	}
 
 	@Override
-	public void visit(Call node) throws MissingResourceException, MismatchException {
+	public void visit(Call node) {
 		ArrayList<ExprNode> temp = node.args();
 		int size = temp.size();
 		push("$0");
@@ -71,11 +71,11 @@ public class X86 implements NodeVisitor{
 		outTab("call " + node.alias());
 		pop(size);
 		pop("%eax");
-		
+
 	}
 
 	@Override
-	public void visit(Function node) throws MissingResourceException, MismatchException {
+	public void visit(Function node) {
 		FunBol temp = FunTable.symbols().get(node.name());
 		args = temp.args().size() * 4;
 		type = temp.type();
@@ -106,7 +106,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Run node) throws MissingResourceException, MismatchException {
+	public void visit(Run node) {
 		out("_start:");
 		for (BaseNode n : assigns){
 			n.accept(this);
@@ -128,7 +128,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Repeat node) throws MissingResourceException, MismatchException {
+	public void visit(Repeat node) {
 		String l1=newLabel();
 		String l2=newLabel();
 		postLabel(l1);
@@ -143,7 +143,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(While node) throws MissingResourceException, MismatchException {
+	public void visit(While node) {
 		String l1=newLabel();
 		String l2=newLabel();
 		postLabel(l1);
@@ -158,7 +158,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Break node) throws MismatchException {
+	public void visit(Break node) {
 		if (label != null){
 			jump(label);
 		} else
@@ -166,7 +166,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Loop node) throws MissingResourceException, MismatchException {
+	public void visit(Loop node) {
 		String l1=newLabel();
 		String l2=newLabel();
 		postLabel(l1);
@@ -179,7 +179,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Do node) throws MissingResourceException, MismatchException {
+	public void visit(Do node) {
 		String l1=newLabel();
 		String l2=newLabel();
 		node.change().accept(this);
@@ -195,7 +195,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(For node) throws MissingResourceException, MismatchException {
+	public void visit(For node) {
 		String l1=newLabel();
 		String l2=newLabel();
 		String name = node.variable().variable().alias();
@@ -222,7 +222,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(If node) throws MissingResourceException, MismatchException {
+	public void visit(If node) {
 		String s1 = newLabel();
 		String s2 = s1;
 		node.test().accept(this);
@@ -241,76 +241,76 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(GreaterEqual node) throws MissingResourceException, MismatchException {
+	public void visit(GreaterEqual node) {
 		compare(node);
 		outTab("setle %al");
 		pop();
 	}
 
 	@Override
-	public void visit(LessEqual node) throws MissingResourceException, MismatchException {
+	public void visit(LessEqual node) {
 		compare(node);
 		outTab("setge %al");
 		pop();
 	}
 
 	@Override
-	public void visit(Greater node) throws MissingResourceException, MismatchException {
+	public void visit(Greater node) {
 		compare(node);
 		outTab("setl %al");
 		pop();
 	}
 
 	@Override
-	public void visit(Less node) throws MissingResourceException, MismatchException {
+	public void visit(Less node) {
 		compare(node);
 		outTab("setg %al");
 		pop();
 	}
 
 	@Override
-	public void visit(Equal node) throws MissingResourceException, MismatchException {
+	public void visit(Equal node) {
 		compare(node);
 		outTab("sete %al");
 		pop();
 	}
 
 	@Override
-	public void visit(NotEqual node) throws MissingResourceException, MismatchException {
+	public void visit(NotEqual node) {
 		compare(node);
 		outTab("setne %al");
 		pop();
 	}
 
 	@Override
-	public void visit(Or node) throws MissingResourceException, MismatchException {
+	public void visit(Or node) {
 		mathOp(node);
 		outTab("or (%esp),%eax");
 		pop();
 	}
 
 	@Override
-	public void visit(Not node) throws MissingResourceException, MismatchException {
+	public void visit(Not node) {
 		node.expression().accept(this);
 		outTab("xor $1,%al");
 	}
 
 	@Override
-	public void visit(And node) throws MissingResourceException, MismatchException {
+	public void visit(And node) {
 		mathOp(node);
 		outTab("and (%esp),%eax");
 		pop();
 	}
 
 	@Override
-	public void visit(Add node) throws MissingResourceException, MismatchException {
+	public void visit(Add node) {
 		mathOp(node);
 		outTab("addl (%esp), %eax");
 		pop();
 	}
 
 	@Override
-	public void visit(Substract node) throws MissingResourceException, MismatchException {
+	public void visit(Substract node) {
 		mathOp(node);
 		outTab("subl (%esp),%eax");
 		outTab("neg %eax");
@@ -318,14 +318,14 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Multiply node) throws MissingResourceException, MismatchException {
+	public void visit(Multiply node) {
 		mathOp(node);
 		outTab("mull (%esp)");
 		pop();
 	}
 
 	@Override
-	public void visit(Divide node) throws MissingResourceException, MismatchException {
+	public void visit(Divide node) {
 		mathOp(node);
 		outTab("movl %eax,%ebx");
 		outTab("movl (%esp),%eax");
@@ -333,9 +333,9 @@ public class X86 implements NodeVisitor{
 		outTab("idivl %ebx");
 		pop();
 	}
-	
+
 	@Override
-	public void visit(Modulo node) throws MissingResourceException, MismatchException {
+	public void visit(Modulo node) {
 		mathOp(node);
 		outTab("movl %eax, %ebx");
 		outTab("movl (%esp),%eax");
@@ -355,93 +355,92 @@ public class X86 implements NodeVisitor{
 	public void visit(Unknown node) {
 		movl(node.alias(), "%eax");
 	}
-	
+
 	void out(String s){
 		code += s + LF;
 	}
-	
+
 	void outTab(String s){
 		out(TAB + s);
 	}
-	
-	private void mathOp(ExprNode f) throws MissingResourceException, MismatchException{
+
+	private void mathOp(ExprNode f) {
 		f.getLeft().accept(this);
 		push();
 		f.getRight().accept(this);
 	}
-	
+
 	void movl(String source, String destination){
 		code += TAB + "movl " + source + ", " + destination + LF;
 	}
-	
+
 	void push(String s){
 		code += TAB + "pushl " + s + LF;
 	}
-	
+
 	void push(){
 		push("%eax");
 	}
-	
-	private void compare(ExprNode f) throws MissingResourceException, MismatchException{
+
+	private void compare(ExprNode f) {
 		mathOp(f);
 		outTab("cmp (%esp),%eax");
 	}
-	
+
 	private void pop(String s){
 		code += TAB + "popl " +s + LF;
 	}
-	
+
 	void pop(){
 		outTab("addl $4,%esp");
 	}
-	
+
 	void pop(int i){
 		if (i > 0)
 			outTab("addl $" + i*4 + ",%esp");
 	}
-	
+
 	void jumpFalse(String s){
 		outTab("cmp $0,%al");
 		outTab("je " + s);
 	}
-	
+
 	void jump(String s){
 		outTab("jmp " + s);
 	}
-	
+
 	void jump(Label l){
 		outTab("jmp " + l.label());
 	}
-	
+
 	public static String newLabel(){
 		String temp = "" + num++;
 		while (temp.length() < 3)
 			temp = "0" + temp;
 		return PREFIX + temp;
 	}
-	
+
 	public void postLabel(String label){
 		out(label + ":");
 	}
-	
+
 	public String output(){
 		return code;
 	}
-	
+
 	public void pushLabel(String s){
 		label = new Label(label, s);
 	}
-	
+
 	public void popLabel(){
 		label = label.parent();
 	}
-	
+
 	void beginFun(){
 		push("%ebp");
 		movl("%esp", "%ebp");
 	}
-	
-	
+
 	void endFun(){
 		movl("%ebp", "%esp");
 		pop("%ebp");
@@ -449,7 +448,7 @@ public class X86 implements NodeVisitor{
 	}
 
 	@Override
-	public void visit(Return node) throws MissingResourceException, MismatchException {
+	public void visit(Return node) {
 		if (returned)
 			throw new MismatchException(node.token(), "Can not have more than one return.");
 		node.expression().accept(this);

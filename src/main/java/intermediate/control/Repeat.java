@@ -15,7 +15,7 @@ public class Repeat extends ControlNode{
 		super(test, body);
 	}
 
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

@@ -7,7 +7,7 @@ import generator.NodeVisitor;
 
 
 public class Substract extends ExprNode{
-	public Substract(ExprNode left, ExprNode right) throws MismatchException{
+	public Substract(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		rn = right;
@@ -58,7 +58,7 @@ public class Substract extends ExprNode{
 		return getLeft() + "-" + getRight();
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

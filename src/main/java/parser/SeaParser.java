@@ -13,7 +13,7 @@ import lexer.*;
 
 public class SeaParser extends ControlStat {
 
-	public SeaParser(String path) throws IOException, MismatchException, OverrideException, MissingResourceException, UnexpectedException{
+	public SeaParser(String path) throws IOException{
 		super(new SeaLexer(path));
 		FunTable.reset();
 		Scope.reset();
@@ -22,7 +22,7 @@ public class SeaParser extends ControlStat {
 		
 	}
 	
-	private void parse() throws MismatchException, IOException, OverrideException, MissingResourceException, UnexpectedException {
+	private void parse() throws IOException {
 		consume();
 		pushScope();
 		definitions();
@@ -30,7 +30,7 @@ public class SeaParser extends ControlStat {
 		EOF();
 	}
 	
-	private void definition() throws MismatchException, UnexpectedException, IOException, OverrideException, MissingResourceException {
+	private void definition() throws IOException {
 	    String type = type();
 	    Token name = identifier();
 	    if (isLBrack())
@@ -39,12 +39,12 @@ public class SeaParser extends ControlStat {
 	        variable( type, name );
 	}
 	
-	private void definitions() throws MismatchException, IOException, OverrideException, MissingResourceException, UnexpectedException{
+	private void definitions() throws IOException{
 		while (isType())
 		    definition();
 	}
 	
-	private void variable(String type, Token t) throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+	private void variable(String type, Token t) {
         if (!type.equals("string") && !type.equals("int"))
             throw new MismatchException(lookahead(),"Unsupported return type. Supported Types are 'string' and 'int'.");
         String value = "0";
@@ -63,7 +63,7 @@ public class SeaParser extends ControlStat {
         }
     }
 	
-	private void function(String type, Token t) throws MismatchException, IOException, OverrideException, MissingResourceException, UnexpectedException{
+	private void function(String type, Token t) throws IOException{
        if (!type.equals("void") && !type.equals("int"))
             throw new MismatchException(lookahead(),"Unsupported return type. Supported Types are 'void' and 'int'.");
         pushScope();
@@ -76,7 +76,7 @@ public class SeaParser extends ControlStat {
         Statements.add(new Function(t, type, args));        
     }
 	
-	private void assign(Token t) throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void assign(Token t) {
 		match("=");
 		if ( isNum() || isAddOp() || isLBrack() || isID() || isString() )
 			Statements.add(createUnk(t));
@@ -86,7 +86,7 @@ public class SeaParser extends ControlStat {
 	
 	
 
-	private void EOF() throws MismatchException, IOException, UnexpectedException, MissingResourceException {
+	private void EOF() {
 		Statements.add(new Call(new Token("exit", null, 0, 0), new ArrayList<ExprNode>()));
 		match(Type.EOF);
 		if (FunTable.undefined() > 0)
@@ -95,7 +95,7 @@ public class SeaParser extends ControlStat {
 			warning("Uncalled functions:\n" + FunTable.functions);
 	}
 
-	private void main() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void main() {
 		match("run");
 		if ( !isID() )
 			throw new MismatchException(lookahead(), "can only run functions");
@@ -104,7 +104,7 @@ public class SeaParser extends ControlStat {
 		Statements.add(new Run(t, args));
 	}
 
-	protected ArrayList<ExprNode> getArgs() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+	protected ArrayList<ExprNode> getArgs() {
 		lBrack();
 		ArrayList<ExprNode> args = new ArrayList<ExprNode>();
 		
@@ -124,7 +124,7 @@ public class SeaParser extends ControlStat {
 		return args;
 	}
 	
-	private ArrayList<ExprNode> getDefArgs() throws MismatchException, IOException, UnexpectedException, OverrideException{
+	private ArrayList<ExprNode> getDefArgs() throws IOException{
 		lBrack();
 		int num	 = 2;
 		ArrayList<ExprNode> args = new ArrayList<ExprNode>();
@@ -151,19 +151,19 @@ public class SeaParser extends ControlStat {
 		return args;
 	}
 	
-	private void call(Token t) throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+	private void call(Token t) {
 		ArrayList<ExprNode> args = getArgs();
 		Statements.add(new Call(t, args));
 	}
 
-	protected void block() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void block() {
 		Scope.push();
 		while ( !is("}") && !is("else"))
 			singleStatement();
 		Scope.pop();
 	}
 
-	protected void singleStatement() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void singleStatement() {
 		switch (lookahead().value()) {
 		case "if":
 			iff();
@@ -205,7 +205,7 @@ public class SeaParser extends ControlStat {
 		}
 	}
 	
-	private void defType() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+	private void defType() {
 		if (!Scope.allows())
 			throw new MismatchException(lookahead, "Can not declare variables inside loops");
 		String s = lookahead().value();
@@ -221,7 +221,7 @@ public class SeaParser extends ControlStat {
 		}		
 	}
 	
-	private void defString() throws MismatchException, IOException, UnexpectedException, MissingResourceException, OverrideException{
+	private void defString() {
 		match("string");
 		Token var = lookahead();
 		match(Type.IDENTIFIER);
@@ -233,7 +233,7 @@ public class SeaParser extends ControlStat {
 		Statements.add(new Assign(getUnk(var), new Unknown(value, "string")));
 	}
 
-	private void defInt() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException{
+	private void defInt() {
 		Token t = lookahead();
 		match(Type.TYPE);
 		pushVariable(lookahead(), t.value());
@@ -244,16 +244,16 @@ public class SeaParser extends ControlStat {
 		}
 	}
 	
-	protected BaseNode createUnk(Token name) throws MismatchException, MissingResourceException, IOException, UnexpectedException, OverrideException{
+	protected BaseNode createUnk(Token name) {
 		return new Assign(getUnk(name), getExpression());
 	}
 	
 	
-	protected Unknown getUnk(Token t) throws MissingResourceException{
+	protected Unknown getUnk(Token t) {
 		return new Unknown(Scope.aliasOf(t), Scope.typeOf(t));
 	}
 
-	private void asOrAd() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void asOrAd() {
 		Token u = identifier();
 		String sign = lookahead.value();
 		switch (sign) {
@@ -288,7 +288,7 @@ public class SeaParser extends ControlStat {
 		throw new UnexpectedException(lookahead, "Unexpected token recieved.");
 	}
 	
-	private void addStat(Unknown name, ExprNode t, String s) throws MismatchException, MissingResourceException{
+	private void addStat(Unknown name, ExprNode t, String s) {
 		Assign n;
 		if (s.equals("+"))
 			n = new AddTo(name, t);
@@ -297,7 +297,7 @@ public class SeaParser extends ControlStat {
 		Statements.add(n);
 	}
 	
-	protected void forAsOrAd(Unknown name) throws MismatchException, IOException, UnexpectedException, MissingResourceException {
+	protected void forAsOrAd(Unknown name) {
 		String sign = lookahead().value();
 		consume();
 		if (is(sign)){
@@ -339,15 +339,15 @@ public class SeaParser extends ControlStat {
 		Scope.pop(size);
 	}
 	
-	protected void pushVariable(Token t, String type) throws OverrideException, MissingResourceException{
+	protected void pushVariable(Token t, String type) {
 		Scope.pushVar(t, type);
 	}
 	
-	private void pushVariable(Token t, String type, int alias) throws OverrideException{
+	private void pushVariable(Token t, String type, int alias) {
 		Scope.pushVariable(t, type, alias*4+"(%ebp)");
 	}
 	
-//	private void pushVariable(Token t, String type, String alias) throws OverrideException{
+//	private void pushVariable(Token t, String type, String alias) {
 //		
 //		Scope.pushVariable(t, type, alias);
 //	}

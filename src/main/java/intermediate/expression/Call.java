@@ -19,7 +19,7 @@ public class Call extends ExprNode{
 	private Token token;
 	private String alias;
 	
-	public Call(Token token, ArrayList<ExprNode> args) throws UnexpectedException, MismatchException, MissingResourceException{
+	public Call(Token token, ArrayList<ExprNode> args) {
 		super(null);
 		this.token = token;
 		this.args = args;
@@ -36,7 +36,7 @@ public class Call extends ExprNode{
 		return token.value();
 	}
 	
-	public String alias() throws MissingResourceException{
+	public String alias() {
 		return alias;
 	}
 	
@@ -44,7 +44,7 @@ public class Call extends ExprNode{
 		return args;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

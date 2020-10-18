@@ -30,7 +30,7 @@ public class For extends ControlNode{
 		return change;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

@@ -15,11 +15,11 @@ import generator.NodeVisitor;
 
 public class Run extends Call{
 	
-	public Run(Token t, ArrayList<ExprNode> args) throws UnexpectedException, MismatchException, MissingResourceException{
+	public Run(Token t, ArrayList<ExprNode> args) {
 		super(t, args);
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

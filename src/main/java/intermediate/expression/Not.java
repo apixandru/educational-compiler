@@ -35,7 +35,7 @@ public class Not extends ExprNode{
 		return expression;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

@@ -10,18 +10,18 @@ public class Assign extends AddNode{
 	private Unknown variable;
 	private ExprNode expression;
 	
-	public Assign(Unknown variable, ExprNode ex, char sign) throws MismatchException, MissingResourceException{
+	public Assign(Unknown variable, ExprNode ex, char sign) {
 		super(sign);
 		this.variable = variable;
 		expression = ex;
 		checkType();
 	}
 	
-	public Assign(Unknown variable, ExprNode ex) throws MismatchException, MissingResourceException{
+	public Assign(Unknown variable, ExprNode ex) {
 		this(variable, ex, ' ');
 	}
 	
-	private void checkType() throws MismatchException, MissingResourceException{
+	private void checkType() {
 		String type1 = variable.type();
 		String type2 = expression.type();
 		if (type2 == null){
@@ -40,7 +40,7 @@ public class Assign extends AddNode{
 		return expression;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

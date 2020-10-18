@@ -18,27 +18,27 @@ public class SeaCompiler extends Request{
 	static boolean guif = false;
 	static boolean debug = true;
 
-	public static void compile(String s) throws IOException, InterruptedException, MismatchException, OverrideException, MissingResourceException, UnexpectedException{
+	public static void compile(String s) throws IOException, InterruptedException{
 		compileFile(s);
 	}
 	
-	public static String debug(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException {
+	public static String debug(String s) throws IOException, InterruptedException {
 		return debugFile(s.substring(1));
 	}
 	
-	static void compileFile(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException{
+	static void compileFile(String s) throws IOException, InterruptedException{
 		System.out.println(debugFile(s));
 	}
 	
-	static String debugFile(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException {
+	static String debugFile(String s) throws IOException, InterruptedException {
 		return new SeaCompiler(s).output();
 	}
 	
-	private SeaCompiler(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException {
+	private SeaCompiler(String s) throws IOException, InterruptedException {
 		init(s);
 	}
 	
-	private void init(String s) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException {
+	private void init(String s) throws IOException, InterruptedException {
 		String[] array = s.split("/");
 		String temp = array[array.length-1];
 		if(temp.length() > 4){
@@ -74,7 +74,7 @@ public class SeaCompiler extends Request{
 		return output;
 	}
 	
-	public static void main(String args[]) throws MismatchException, OverrideException, MissingResourceException, UnexpectedException, IOException, InterruptedException{
+	public static void main(String args[]) throws IOException, InterruptedException{
 		if (debug){
 			compileFile("./tests/algorithms/fibonacci.sea");
 			compileFile("./tests/algorithms/timestamp.sea");

@@ -7,7 +7,7 @@ import generator.NodeVisitor;
 
 
 public class Modulo extends ExprNode{
-	public Modulo(ExprNode left, ExprNode right) throws MismatchException{
+	public Modulo(ExprNode left, ExprNode right) {
 		super(null);
 		ln = left;
 		if (right.optimize().equals("0"))
@@ -37,7 +37,7 @@ public class Modulo extends ExprNode{
 		}
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

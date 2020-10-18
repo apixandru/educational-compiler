@@ -21,13 +21,13 @@ public class Function extends BaseNode{
 	private Token token;
 	private String alias;
 	
-	public Function(Token t, String type, ArrayList<ExprNode> args) throws OverrideException, MismatchException, MissingResourceException{
+	public Function(Token t, String type, ArrayList<ExprNode> args) {
 		alias = FunTable.define(t, type, args);
 		token = t;
 		statements = Statements.pop();
 	}
 	
-	public String alias() throws MissingResourceException{
+	public String alias() {
 		return alias;
 	}
 	
@@ -39,7 +39,7 @@ public class Function extends BaseNode{
 		return statements;
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 	

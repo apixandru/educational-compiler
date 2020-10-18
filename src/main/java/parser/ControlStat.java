@@ -16,7 +16,7 @@ public abstract class ControlStat extends BooleanExpression{
 		super(lexer);
 	}
 
-	protected void forf() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void forf() {
 		match("for");
 		lBrack();
 		Token variable = lookahead();
@@ -40,10 +40,8 @@ public abstract class ControlStat extends BooleanExpression{
 		Statements.add(new For(begin, condition, change, forStats));
 		Scope.pop();
 	}
-	
-	
 
-	protected void loop() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void loop() {
 		match("loop");
 		Statements.push();
 		stats();
@@ -51,7 +49,7 @@ public abstract class ControlStat extends BooleanExpression{
 		Statements.add(new Loop(loopStats));
 	}
 	
-	protected void dof() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void dof() {
 		match("do");
 		Unknown condition = new Unknown(Scope.plusOne(), "int");
 		try{
@@ -69,7 +67,7 @@ public abstract class ControlStat extends BooleanExpression{
 		Statements.add(new Do(change, doStats));
 	}
 	
-	protected void whilef() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void whilef() {
 		Token t = lookahead();
 		match("while");
 		lBrack();
@@ -90,7 +88,7 @@ public abstract class ControlStat extends BooleanExpression{
 		}
 	}
 	
-	protected void iff() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void iff() {
 		ArrayList<BaseNode> ifStats = new ArrayList<BaseNode>();
 		ArrayList<BaseNode> elseStats = new ArrayList<BaseNode>();
 		Token t = lookahead();
@@ -123,7 +121,7 @@ public abstract class ControlStat extends BooleanExpression{
 	}
 	
 	
-	protected void repeatf() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	protected void repeatf() {
 		Token t = lookahead();
 		match("repeat"); 	
 		Statements.push();
@@ -147,7 +145,7 @@ public abstract class ControlStat extends BooleanExpression{
 		}
 	}
 	
-	private void stats() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException {
+	private void stats() {
 		if (lookahead().type() == Type.BEGINBLOCK) {
 			match(Type.BEGINBLOCK);
 			Scope.banLocal();
@@ -158,22 +156,22 @@ public abstract class ControlStat extends BooleanExpression{
 			singleStatement();
 	}
 	
-	public void breakf() throws MismatchException, IOException, UnexpectedException  {
+	public void breakf()  {
     	match("break");
     	Statements.add(new Break());
     }
 	
-	public void returnf() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException  {
+	public void returnf()  {
     	match("return");
     	Statements.add(new Return(lookahead, getExpression()));
     }
-	protected abstract void block() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException;
+	protected abstract void block();
 	
-	protected abstract void singleStatement() throws MismatchException, IOException, MissingResourceException, UnexpectedException, OverrideException;
+	protected abstract void singleStatement();
 		
-	protected abstract void forAsOrAd(Unknown name) throws MismatchException, IOException, UnexpectedException, MissingResourceException;
+	protected abstract void forAsOrAd(Unknown name);
 	
-	protected abstract BaseNode createUnk(Token name) throws MismatchException, MissingResourceException, IOException, UnexpectedException, OverrideException;
+	protected abstract BaseNode createUnk(Token name);
 	
-	protected abstract void pushVariable(Token t, String type) throws OverrideException, MissingResourceException;
+	protected abstract void pushVariable(Token t, String type);
 }

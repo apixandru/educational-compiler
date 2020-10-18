@@ -15,7 +15,7 @@ public class While extends ControlNode{
 		super(n, b);
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 

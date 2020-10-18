@@ -9,11 +9,11 @@ import intermediate.expression.Unknown;
 
 public class AddTo extends Assign{
 
-	public AddTo(Unknown variable, ExprNode ex) throws MismatchException, MissingResourceException{
+	public AddTo(Unknown variable, ExprNode ex) {
 		super(variable, new Add(variable,ex), '+');
 	}
 
-	public void accept(NodeVisitor visitor) throws MissingResourceException, MismatchException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }

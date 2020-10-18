@@ -18,21 +18,33 @@ public abstract class Lexer {
     protected int character;
 
     protected Lexer(String input) throws IOException {
-        inputStream = new FileReader(input);
+        this(new FileReader(input));
+    }
+
+    protected Lexer(FileReader reader) {
+        inputStream = reader;
         line = 1;
         character = 0;
         consume();
     }
 
-    char consume() throws IOException {
+    char consume() {
         char temp = c;
         if (c == '\n') {
             line++;
             character = 0;
         }
-        c = (char) inputStream.read();
+        c = nextChar();
         character++;
         return temp;
+    }
+
+    private char nextChar() {
+        try {
+            return (char) inputStream.read();
+        } catch (IOException ex) {
+            throw new UnexpectedException("Failed to read next char!");
+        }
     }
 
     boolean isWhiteSpace() {
@@ -55,19 +67,21 @@ public abstract class Lexer {
         return Character.isLetterOrDigit(c);
     }
 
-    void whiteSpace() throws IOException {
-        while (isWhiteSpace())
+    void whiteSpace() {
+        while (isWhiteSpace()) {
             consume();
+        }
     }
 
-    void match(char c) throws MismatchException, IOException {
-        if (this.c == c)
+    void match(char c) {
+        if (this.c == c) {
             consume();
-        else
+        } else {
             throw new MismatchException(("Error " + line + "," + character +
                     ": Expecting '" + c + "', found '" + this.c + "'."));
+        }
     }
 
-    public abstract Token nextToken() throws MismatchException, IOException, UnexpectedException;
+    public abstract Token nextToken();
 
 }

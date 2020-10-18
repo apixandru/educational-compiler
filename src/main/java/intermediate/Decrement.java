@@ -16,7 +16,7 @@ public class Decrement extends AddNode{
 		return variable.alias();
 	}
 	
-	public void accept(NodeVisitor visitor) throws MissingResourceException{
+	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
 }
