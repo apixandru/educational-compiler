@@ -1,28 +1,33 @@
 package parser;
 
-import exceptions.*;
+import exceptions.MismatchException;
+import exceptions.MissingResourceException;
+import exceptions.UnexpectedException;
 import generator.Prelude;
 import intermediate.*;
-import intermediate.expression.*;
+import intermediate.expression.Call;
+import intermediate.expression.Constant;
+import intermediate.expression.ExprNode;
+import intermediate.expression.Unknown;
+import lexer.Lexer;
+import lexer.Token;
+import lexer.Type;
+import persistent.FunTable;
+import persistent.Scope;
+import persistent.Statements;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import persistent.*;
-import lexer.*;
 
 public class SeaParser extends ControlStat {
 
-	public SeaParser(String path) throws IOException{
-		super(new SeaLexer(path));
+	public SeaParser(Lexer lexer) {
+		super(lexer);
 		FunTable.reset();
 		Scope.reset();
 		Statements.clear();
-		parse();
-		
 	}
-	
-	private void parse() throws IOException {
+
+	public void parse() {
 		consume();
 		pushScope();
 		definitions();
@@ -30,7 +35,7 @@ public class SeaParser extends ControlStat {
 		EOF();
 	}
 	
-	private void definition() throws IOException {
+	private void definition() {
 	    String type = type();
 	    Token name = identifier();
 	    if (isLBrack())
@@ -39,7 +44,7 @@ public class SeaParser extends ControlStat {
 	        variable( type, name );
 	}
 	
-	private void definitions() throws IOException{
+	private void definitions() {
 		while (isType())
 		    definition();
 	}
@@ -63,7 +68,7 @@ public class SeaParser extends ControlStat {
         }
     }
 	
-	private void function(String type, Token t) throws IOException{
+	private void function(String type, Token t) {
        if (!type.equals("void") && !type.equals("int"))
             throw new MismatchException(lookahead(),"Unsupported return type. Supported Types are 'void' and 'int'.");
         pushScope();
@@ -124,7 +129,7 @@ public class SeaParser extends ControlStat {
 		return args;
 	}
 	
-	private ArrayList<ExprNode> getDefArgs() throws IOException{
+	private ArrayList<ExprNode> getDefArgs() {
 		lBrack();
 		int num	 = 2;
 		ArrayList<ExprNode> args = new ArrayList<ExprNode>();

@@ -3,25 +3,22 @@ package lexer;
 import exceptions.MismatchException;
 import exceptions.UnexpectedException;
 
-import java.io.FileReader;
+import java.io.Closeable;
 import java.io.IOException;
+import java.io.Reader;
 
 
-public abstract class Lexer {
+public abstract class Lexer implements Closeable {
 
     private static final char EOF = (char) -1;
 
-    private final FileReader inputStream;
+    private final Reader inputStream;
 
     protected char c;
     protected int line;
     protected int character;
 
-    protected Lexer(String input) throws IOException {
-        this(new FileReader(input));
-    }
-
-    protected Lexer(FileReader reader) {
+    protected Lexer(Reader reader) {
         inputStream = reader;
         line = 1;
         character = 0;
@@ -83,5 +80,10 @@ public abstract class Lexer {
     }
 
     public abstract Token nextToken();
+
+    @Override
+    public void close() throws IOException {
+        inputStream.close();
+    }
 
 }

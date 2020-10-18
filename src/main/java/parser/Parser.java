@@ -8,7 +8,10 @@ import lexer.Token;
 import lexer.Type;
 import persistent.Terms;
 
-public abstract class Parser {
+import java.io.Closeable;
+import java.io.IOException;
+
+public abstract class Parser implements Closeable {
 
     private final Lexer lexer;
 
@@ -153,6 +156,11 @@ public abstract class Parser {
     private String generateMessage(String expected, String recieved) {
         return lookahead.position() + ": expecting type '" + expected +
                 "' found '" + recieved + "'";
+    }
+
+    @Override
+    public void close() throws IOException {
+        lexer.close();
     }
 
 }

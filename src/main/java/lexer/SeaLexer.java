@@ -3,12 +3,12 @@ package lexer;
 import exceptions.MismatchException;
 import exceptions.UnexpectedException;
 
-import java.io.IOException;
+import java.io.Reader;
 
 public class SeaLexer extends Lexer {
 
-    public SeaLexer(String input) throws IOException {
-        super(input);
+    public SeaLexer(Reader reader) {
+        super(reader);
     }
 
     public Token nextToken() {
