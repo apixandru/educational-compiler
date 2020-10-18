@@ -1,0 +1,14 @@
+void test(){
+	printint(returnOne())
+	ilon()
+}
+
+void ilon(){
+	printint(4)
+}
+
+int returnOne(){
+	return 1
+}
+
+run test()

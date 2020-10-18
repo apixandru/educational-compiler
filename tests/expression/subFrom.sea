@@ -1,0 +1,8 @@
+void test(){
+	int x = 3
+	printint(x)
+	x -= 1
+	printint(x)
+}
+
+run test()

@@ -1,0 +1,18 @@
+void x(){
+	int i
+	int change = 1
+	for (i=1 to 3,++)
+		printint(i)
+	for (i=4 to 1,--)
+		printint(i)
+	for (i=1 to 3,+1)
+		printint(i)
+	for (i=4 to 1,-change)
+		printint(i)
+	for (i=1 to 3,+change)
+		printint(i)
+	for (i=4 to 1,-1)
+		printint(i)
+}
+
+run x()

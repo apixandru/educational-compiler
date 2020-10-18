@@ -1,0 +1,8 @@
+void runMe(){
+	int x = fun()
+	printint(x)
+}
+
+void fun(){}
+
+run runMe()

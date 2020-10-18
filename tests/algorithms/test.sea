@@ -1,0 +1,12 @@
+void test(){
+	int x 
+	{
+		int y = 4
+		loop { 
+			y++ 	 
+			break
+		}
+	}
+}
+
+run test()

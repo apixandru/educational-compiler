@@ -1,0 +1,20 @@
+ int fib(int n){
+	int x
+    if (n < 2)
+		x = n
+    else 
+		x = fib(n-1) + fib(n-2)
+	return x
+}
+
+void printFibTo(int x){
+	print("The first ")
+	printint(x)
+	print(" digits of the fibonacci sequence are:\n")
+	x--
+	int i
+	for(i=0 to x,++)
+		printintlf(fib(i))
+}
+
+run printFibTo(12)

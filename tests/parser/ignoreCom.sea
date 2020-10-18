@@ -1,0 +1,9 @@
+#ignore me
+void test(){ //ignore this line!
+	/*d
+*/
+	int x
+	printint(x)
+}
+
+run test()

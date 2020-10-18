@@ -1,0 +1,5 @@
+void x(){
+	return 3
+}
+
+run x()

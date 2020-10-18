@@ -1,0 +1,21 @@
+void test(){
+	int i 
+	repeat {
+		printint(i)
+		i++
+	} until (i>2)
+	
+	repeat {
+		printint(i)
+		i++
+	} until (1>2)
+	
+	repeat {
+		printint(i)
+		i++
+		if (i>10)
+			break
+	} until (3>2)
+}
+
+run test()

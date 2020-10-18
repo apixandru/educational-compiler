@@ -1,0 +1,5 @@
+void callMe(){
+	printint(3)
+}
+void uncalled(){}
+run	callMe() 

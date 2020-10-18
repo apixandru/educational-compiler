@@ -1,0 +1,11 @@
+void test(){
+	int i
+	loop{
+		printint(i)
+		i++
+		if (i>4)
+			break
+	}
+}
+
+run test()

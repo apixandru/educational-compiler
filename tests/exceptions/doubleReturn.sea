@@ -1,0 +1,6 @@
+int test(){
+	return 1
+	return 2
+}
+
+run test()

@@ -1,0 +1,12 @@
+void test(){
+	int x = 12
+	printint(x)
+	{
+		string x = "ah"
+		print(x)
+	}
+	x = 10
+	printint(x)
+}
+
+run test()

@@ -1,0 +1,12 @@
+void test(){
+	int x = 3
+	int y
+	printint(x)
+	x +=(0)
+	x +=-0
+	x += y
+	x += 3
+	printint(x)
+}
+
+run test()

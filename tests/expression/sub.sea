@@ -1,0 +1,26 @@
+void sub(){
+	int x = getOne()-getOne()
+	printint(x)
+
+	x = getOne()-0
+	printint(x)
+
+	x = 0 - getOne()
+	printint(x)
+
+	x = 1 - x - 33
+	printint(x)
+	
+	x = 1-1
+	x = x - 10 - 4
+	printint(x)
+	
+	x = x - x - x
+	printint(x)
+}
+
+int getOne(){
+	return 1
+}
+
+run sub()

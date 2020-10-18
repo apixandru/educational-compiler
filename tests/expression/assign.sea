@@ -1,0 +1,20 @@
+int returnOne(){
+	return 1
+}
+
+void useAll(){
+	int x = 0
+	printint(x)
+	x = -returnOne()
+	printint(x)
+	x = (returnOne())
+	printint(x)
+	x = returnTwo()
+	printint(x)
+}
+
+int returnTwo(){
+	return 2
+}
+
+run useAll()

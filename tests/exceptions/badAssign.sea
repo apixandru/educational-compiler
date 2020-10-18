@@ -1,0 +1,6 @@
+void bad(){}
+
+void getBad(){
+	int x = bad()
+}
+

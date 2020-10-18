@@ -1,0 +1,9 @@
+void test(){
+	int i 
+	loop{
+		printint(i)
+		break
+	}
+}
+
+run test()

@@ -1,0 +1,9 @@
+void test(){
+	int i
+	do -5 {
+		printint(i)
+		i++
+	}
+}
+
+run test()

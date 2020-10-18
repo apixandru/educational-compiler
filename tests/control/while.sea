@@ -1,0 +1,17 @@
+void test(){
+	int i
+	while(i>-4){
+		printint(i)
+		i--
+	}
+	while(1>2)
+		break
+	while(2>1){
+		printint(i)
+		i++
+		if (i>=0)
+			break
+	}
+}
+
+run test()

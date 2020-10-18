@@ -1,0 +1,8 @@
+int i = 327650
+int j
+void test(){
+	printintlf(i)
+  printintlf(j)
+}
+
+run test()

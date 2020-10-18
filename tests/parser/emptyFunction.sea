@@ -1,0 +1,8 @@
+void empty(){}
+
+void callMe(){
+	empty()
+	printint(1241)
+}
+
+run callMe()

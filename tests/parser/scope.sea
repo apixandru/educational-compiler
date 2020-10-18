@@ -1,0 +1,19 @@
+void test(){
+	int x = 4
+	printint(x)
+	{
+		int x = 8
+		printint(x)
+		{
+			x = 7
+			printint(x)
+			int x
+			printint(x)
+		}
+	printint(x)
+	}
+	printint(x)	
+	
+}
+
+run test()

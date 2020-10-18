@@ -1,0 +1,9 @@
+int sum(int c, string w){
+	return c
+}
+
+void main(){
+	printint(sum(1,2))
+}
+
+run main()

@@ -1,0 +1,19 @@
+void add(){
+	int x = getOne()/getOne()
+	printint(x)
+	
+	x = 0/getOne()
+	printint(x)
+	
+	x = getOne()/1
+	printint(x)
+	
+	x = 1/5
+	printint(x)
+}
+
+int getOne(){
+	return 1
+}
+
+run add()

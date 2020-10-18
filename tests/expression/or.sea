@@ -1,0 +1,30 @@
+void test(){
+	int x
+	int y = 1
+	if (1 < 2 || 3 > 4)
+		printint(x)
+	else
+		printint(y)
+	
+	if (3 < 1 || 4 > 0)
+		printint(x)
+	else
+		printint(y)
+	
+	if (3 < 1 || 4 < 1)
+		printint(x)
+	else
+		printint(y)
+	
+	if (y < 1 || 0 < 1)
+		printint(x)
+	else
+		printint(y)
+
+	if (1 < y || 0 < 0)
+		printint(x)
+	else
+		printint(y)
+}
+
+run test()

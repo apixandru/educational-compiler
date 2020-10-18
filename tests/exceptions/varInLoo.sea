@@ -1,0 +1,7 @@
+void test(){
+	loop{
+		int x
+	}
+}
+
+run test()

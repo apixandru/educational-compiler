@@ -1,0 +1,144 @@
+global string separator= ":"
+global int secondsInMinute = 60
+global int secondsInHour = 60 * secondsInMinute
+global int secondsInDay = 24 * secondsInHour
+global int secondsInYear = 365 * secondsInDay
+global int secondsInLeapYear = secondsInYear + secondsInDay
+global int secondsInFourYears = 3 * secondsInYear + secondsInLeapYear
+global int seconds
+global int minutes
+global int hours
+global int days
+global int month
+global int years 
+global int isLeap = 0
+global int timestamp
+
+void timestamp(int keepTS){
+	timestamp=keepTS
+	checkLegal()
+
+	days()
+	hours()
+	minutes()
+	years()
+	
+	getMonth(keepTS)
+}
+
+void getMonth(int x){
+	int temp
+	if (month == 1 || 
+		month == 3 || 
+		month == 5 || 
+		month == 7 || 
+		month == 8 || 
+		month == 10 || 
+		month == 12)
+		temp = 31	
+	else if (month == 4 || 
+			 month == 6 || 
+			 month == 9 || 
+			 month == 11)
+		temp = 30
+	else
+		temp = 28 + isLeap
+	if (days > temp){
+		sub(temp)
+		getMonth(x)
+	} else
+		printResult(x)
+}
+
+void sub(int x){
+	month++
+	days -= x
+}
+	
+void years(){
+	isLeap = 0
+	timestamp = days*secondsInDay
+	int temp = timestamp / secondsInFourYears
+	timestamp -= temp * secondsInFourYears
+	years = 1970 + temp * 4
+	if ( timestamp >= secondsInYear) {
+		timestamp -= secondsInYear 
+		years++
+		if (timestamp >= secondsInYear) {
+			timestamp -= secondsInYear
+			isLeap = 1
+			years++
+			if (timestamp >= secondsInLeapYear) {
+				isLeap = 0
+				timestamp -= secondsInLeapYear
+				years++
+			}
+		}
+	}
+	if (days < 1)
+		days = 1
+	days = timestamp/secondsInDay+1
+	month = 1
+}
+
+void printWLZ(int x){
+	if (x<10)
+		printint(0)
+	printint(x)
+}
+
+void printResult(int timestamp){
+	printint(timestamp)
+	print("\t is ")
+	printWLZ(hours)
+	print(separator)
+	printWLZ(minutes)
+	print(separator)
+	printWLZ(seconds)
+	print(" on ")
+	printWLZ(days)
+	print(" ")
+	printWLZ(month)
+	print(" ")
+	printWLZ(years)
+	printlf()
+}
+
+void days(){
+	days = timestamp/secondsInDay
+	timestamp -= days*secondsInDay
+}
+
+void hours(){
+	hours = timestamp/secondsInHour
+	timestamp -= hours*secondsInHour
+}
+
+void minutes(){
+	minutes = timestamp/secondsInMinute
+	seconds = timestamp - minutes*secondsInMinute
+}
+
+void checkLegal(){
+	if (timestamp<0){
+		print("Cannot compute this timestamp")
+		exit()
+	}
+}
+
+void test(){
+	timestamp(1073741824) // 10 Jan 2004 13:37:04 
+	timestamp(1234567890) // 13 Feb 2009 23:31:30 
+	timestamp(1111111111) // 18 Mar 2005 01:58:31 
+	timestamp(70978332)   // 01 Apr 1972 12:12:12 
+	timestamp(2000000000) // 18 May 2033 03:33:20 
+	timestamp(2034061609) // 16 Jun 2034 09:06:49 
+	timestamp(1311738121) // 27 Jul 2011 03:42:01 
+	timestamp(114047999)  // 12 Aug 1973 23:59:59
+	timestamp(1000000000) // 09 Sep 2001 01:46:40
+	timestamp(1414213562) // 25 Oct 2014 05:06:02
+	timestamp(153489599)  // 12 Nov 1974 11:59:59
+	timestamp(1355314332) // 12 Dec 2012 12:12:12
+}
+
+run test()

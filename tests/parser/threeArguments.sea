@@ -1,0 +1,6 @@
+void test(int one, int two, string three){
+	print(three)
+	printint(one+two)
+}
+
+run test(+41, -3, "The sum is ");

@@ -1,0 +1,17 @@
+int x = 31
+int z
+string y = "hello"
+void hi(){
+	printint(x)
+  printint(z)
+  {
+		print(y)
+		int x
+		printint(x)
+		x = 1
+		printint(x)
+	}
+	printint(x)
+}
+
+run hi()
