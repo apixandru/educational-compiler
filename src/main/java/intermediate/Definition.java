@@ -1,29 +1,29 @@
 package intermediate;
 
-import exceptions.MissingResourceException;
 import generator.NodeVisitor;
 
 
-public class Definition extends BaseNode{
+public class Definition extends BaseNode {
 
-	private String name;
-	private String value;
-	
-	public Definition(String name) {
-		this.name = name;
-		this.value = "$0";
+    private final String name;
+    private final String value;
 
-	}
-	
-	public String alias(){
-		return name;
-	}
+    public Definition(String name) {
+        this.name = name;
+        this.value = "$0";
 
-	public String value(){
-		return value;
-	}
-	
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
+    }
+
+    public String alias() {
+        return name;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
 }

@@ -1,17 +1,15 @@
 package intermediate.control;
 
-import exceptions.MismatchException;
-import exceptions.MissingResourceException;
 import generator.NodeVisitor;
 
-public class Break extends ControlNode{
+public class Break extends ControlNode {
 
-	public Break() {
-		super(null, null);
-	}
+    public Break() {
+        super(null, null);
+    }
 
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
 
 }

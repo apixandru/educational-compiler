@@ -1,25 +1,20 @@
 package intermediate;
 
+import generator.NodeVisitor;
 import intermediate.expression.Call;
 import intermediate.expression.ExprNode;
+import lexer.Token;
 
 import java.util.ArrayList;
 
-import exceptions.MismatchException;
-import exceptions.MissingResourceException;
-import exceptions.UnexpectedException;
+public class Run extends Call {
 
+    public Run(Token t, ArrayList<ExprNode> args) {
+        super(t, args);
+    }
 
-import lexer.Token;
-import generator.NodeVisitor;
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
 
-public class Run extends Call{
-	
-	public Run(Token t, ArrayList<ExprNode> args) {
-		super(t, args);
-	}
-	
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
 }

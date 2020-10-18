@@ -7,6 +7,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
 
+import static compiler.IoUtils.buffer;
+
 
 public abstract class Lexer implements Closeable {
 
@@ -19,7 +21,7 @@ public abstract class Lexer implements Closeable {
     protected int character;
 
     protected Lexer(Reader reader) {
-        inputStream = reader;
+        inputStream = buffer(reader);
         line = 1;
         character = 0;
         consume();

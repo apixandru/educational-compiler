@@ -6,21 +6,21 @@ import intermediate.expression.ExprNode;
 
 import java.util.List;
 
-public class If extends ControlNode{
+public class If extends ControlNode {
 
-	private List<BaseNode> elselist;
-	
-	public If(ExprNode n, List<BaseNode> b, List<BaseNode> elselist) {
-		super(n, b);
-		this.elselist = elselist;
-	}
+    private final List<BaseNode> elselist;
 
-	public List<BaseNode> elseList(){
-		return elselist;
-	}
-	
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
-	
+    public If(ExprNode n, List<BaseNode> b, List<BaseNode> elselist) {
+        super(n, b);
+        this.elselist = elselist;
+    }
+
+    public List<BaseNode> elseList() {
+        return elselist;
+    }
+
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
 }

@@ -5,6 +5,7 @@ import exceptions.UnexpectedException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class IoUtils {
 
@@ -23,6 +24,13 @@ public class IoUtils {
         } catch (IOException | InterruptedException e) {
             throw new UnexpectedException("Failed to execute process: " + e);
         }
+    }
+
+    public static BufferedReader buffer(Reader reader) {
+        if (reader instanceof BufferedReader) {
+            return (BufferedReader) reader;
+        }
+        return new BufferedReader(reader);
     }
 
 }

@@ -1,31 +1,31 @@
 package intermediate.expression;
 
-import exceptions.MissingResourceException;
 import generator.NodeVisitor;
 
 
-public class Unknown extends ExprNode{
+public class Unknown extends ExprNode {
 
-	private String variable;
-	
-	public Unknown(String alias, String type){
-		super(type);
-		variable = alias;
-	}
+    private final String variable;
 
-	public String toString() {
-		return variable;
-	}
+    public Unknown(String alias, String type) {
+        super(type);
+        variable = alias;
+    }
 
-	public String optimize() {
-		return toString();
-	}
+    public String toString() {
+        return variable;
+    }
 
-	public String alias() {
-		return toString();
-	}
-	
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
+    public String optimize() {
+        return toString();
+    }
+
+    public String alias() {
+        return toString();
+    }
+
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
 }

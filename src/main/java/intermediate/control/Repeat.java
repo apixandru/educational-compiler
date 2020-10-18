@@ -6,14 +6,14 @@ import intermediate.expression.ExprNode;
 
 import java.util.List;
 
-public class Repeat extends ControlNode{
+public class Repeat extends ControlNode {
 
-	public Repeat(ExprNode test, List<BaseNode> body) {
-		super(test, body);
-	}
+    public Repeat(ExprNode test, List<BaseNode> body) {
+        super(test, body);
+    }
 
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+    }
 
 }

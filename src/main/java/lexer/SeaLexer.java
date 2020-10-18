@@ -165,7 +165,7 @@ public class SeaLexer extends Lexer {
     }
 
     private Token newToken(char c, Type t) {
-        return new Token(c, t, line, character);
+        return newToken(String.valueOf(c), t);
     }
 
 }
