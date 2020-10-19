@@ -5,7 +5,6 @@ import exceptions.UnexpectedException;
 import intermediate.expression.*;
 import lexer.Lexer;
 import lexer.Token;
-import persistent.Terms;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public abstract class Expression extends Parser {
 
     private void factor() {
         if (isAddOp()) {
-            Terms.add(new Constant(0));
+            terms.add(new Constant(0));
             expNode();
         } else {
             if (isLBrack()) {
@@ -68,8 +67,8 @@ public abstract class Expression extends Parser {
             factor();
         }
 
-        ExprNode ln = Terms.getPenultimate();
-        ExprNode rn = Terms.getLast();
+        ExprNode ln = terms.getPenultimate();
+        ExprNode rn = terms.getLast();
         ExprNode temp = null;
         switch (value) {
             case "+":

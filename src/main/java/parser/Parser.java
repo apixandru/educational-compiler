@@ -13,6 +13,8 @@ import java.io.IOException;
 
 public abstract class Parser implements Closeable {
 
+    protected final Terms terms = new Terms();
+
     private final Lexer lexer;
 
     protected Token lookahead;
@@ -106,11 +108,11 @@ public abstract class Parser implements Closeable {
     }
 
     protected void deleteLast() {
-        Terms.removePenultimate();
+        terms.removePenultimate();
     }
 
     protected void add(ExprNode n) {
-        Terms.add(n);
+        terms.add(n);
     }
 
     protected void addNode(ExprNode node) {

@@ -56,8 +56,8 @@ public abstract class BooleanExpression extends Expression {
     private void createNode(String value) {
         consume();
         expression();
-        ExprNode ln = Terms.getPenultimate();
-        ExprNode rn = Terms.getLast();
+        ExprNode ln = terms.getPenultimate();
+        ExprNode rn = terms.getLast();
         ExprNode temp = null;
         switch (value) {
             case "==":
@@ -83,8 +83,8 @@ public abstract class BooleanExpression extends Expression {
     }
 
     private void createBoolNode(String value) {
-        ExprNode ln = Terms.getPenultimate();
-        ExprNode rn = Terms.getLast();
+        ExprNode ln = terms.getPenultimate();
+        ExprNode rn = terms.getLast();
         ExprNode temp = null;
         if (value.equals("&&")) {
             temp = new And(ln, rn);
@@ -100,7 +100,7 @@ public abstract class BooleanExpression extends Expression {
             lBrack();
             boolExpression();
             rBrack();
-            ExprNode temp = new Not(Terms.getLast());
+            ExprNode temp = new Not(terms.getLast());
             addNode(temp, 1);
         } else {
             relation();
@@ -134,14 +134,14 @@ public abstract class BooleanExpression extends Expression {
     }
 
     private ExprNode getAux(boolean bool) {
-        Terms.push();
+        terms.push();
         if (bool) {
             boolExpression();
         } else {
             expression();
         }
-        ExprNode last = Terms.getLast();
-        Terms.pop();
+        ExprNode last = terms.getLast();
+        terms.pop();
         return last;
     }
 

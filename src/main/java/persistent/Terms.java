@@ -3,41 +3,42 @@ package persistent;
 import intermediate.expression.ExprNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Terms {
 
-    private static Terms t = new Terms(null);
-    private final Terms parent;
+    private final LinkedList<List<ExprNode>> stack = new LinkedList<>();
     private final List<ExprNode> terms;
 
-    private Terms(Terms t) {
-        parent = t;
+    public Terms() {
         terms = new ArrayList<>();
     }
 
-    public static ExprNode getLast() {
-        return t.terms.get(t.terms.size() - 1);
+    public ExprNode getLast() {
+        return terms.get(terms.size() - 1);
     }
 
-    public static void push() {
-        t = new Terms(t);
+    public void push() {
+        stack.push(new ArrayList<>(terms));
+        terms.clear();
     }
 
-    public static ExprNode getPenultimate() {
-        return t.terms.get(t.terms.size() - 2);
+    public ExprNode getPenultimate() {
+        return terms.get(terms.size() - 2);
     }
 
-    public static void add(ExprNode n) {
-        t.terms.add(n);
+    public void add(ExprNode n) {
+        terms.add(n);
     }
 
-    public static void removePenultimate() {
-        t.terms.remove(t.terms.size() - 2);
+    public void removePenultimate() {
+        terms.remove(terms.size() - 2);
     }
 
-    public static void pop() {
-        t = t.parent;
+    public void pop() {
+        terms.clear();
+        terms.addAll(stack.pop());
     }
 
 }
